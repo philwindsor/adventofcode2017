@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AdventOfCode2017.Day3
@@ -8,16 +9,21 @@ namespace AdventOfCode2017.Day3
     {
         public static int CalculateSteps(int number)
         {
+            var sqrt = FindSquareRoot(number);
+
+
+
+
             return 0;
         }
 
-        public static int FindLowerSquareRoot(int number)
+        public static int FindSquareRoot(int number)
         {
-            for (int i = number - 1; i >= 0; i--)
+            for (int i = number; i < int.MaxValue; i++)
             {
-                var result =  Math.Sqrt(number);
+                var result = Math.Sqrt(i);
 
-                if((result % 2) == 0)
+                if ((result % 1) == 0)
                 {
                     return i;
                 }
@@ -26,19 +32,20 @@ namespace AdventOfCode2017.Day3
             throw new Exception("Square Root Not Found");
         }
 
-        public static int FindHigherSquareRoot(int number)
-        {
-            for (int i = 0; i < number; i++)
+        public static int OddNumberOrder(int number)
+        {           
+            int num = 0;
+            for (int i = 1; i <= number; i += 2)
             {
-                var result = Math.Sqrt(number);
-
-                if ((result % 2) == 0)
-                {
-                    return i;
-                }
+                num++;
             }
 
-            throw new Exception("Square Root Not Found");
+            return num;
+        }
+
+        public static int FindMedian(int start, int end)
+        {
+            return (int)Enumerable.Range(start, end).Average();           
         }
     }
 }
