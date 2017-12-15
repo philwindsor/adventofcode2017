@@ -23,10 +23,10 @@ namespace AdventOfCodeTests
         public void Example_Part2()
         {
             var input = "5\t9\t2\t8\r\n" +
-                        "9\t4\t7\t3" +
+                        "9\t4\t7\t3\r\n" +
                         "3\t8\t6\t5";
 
-            CorruptionChecksum.CalculateCheckSum(input).Should().Be(18);
+            CorruptionChecksum.CalculateCheckSum_Part2(input).Should().Be(9);
         }
     }
 }
