@@ -17,7 +17,7 @@ namespace AdventOfCodeTests
         [InlineData(25, 25)]
         public void FindSquareRoot_Should_Return_Correct_Number(int num, int expected)
         {
-            SpiralMemory.FindSquareRoot(num).Should().Be(expected);
+            SpiralMemory.FindSquareRoot(num).value.Should().Be(expected);
         }
 
         [Theory]
@@ -63,16 +63,21 @@ namespace AdventOfCodeTests
         }
 
         [Theory]
+        [InlineData(8, 9, 2, 7, 9)] // First grid after 1
+        [InlineData(6, 9, 2, 5, 7)]
         [InlineData(4, 9, 2, 3, 5)]
-        //[InlineData(5, 7, 6)]
-        //[InlineData(21, 25, 23)]
-        //[InlineData(9, 13, 11)]
+        [InlineData(2, 9, 2, 1, 3)]
+        [InlineData(23, 25, 3, 21, 25)] // second grid after 1
+        [InlineData(19, 25, 3, 17, 21)]
+        [InlineData(15, 25, 3, 13, 17)]
+        [InlineData(11, 25, 3, 9,13)]       
+
         public void FindGridRange_Should_Return_Correct_Range(int number, int sqrt, int sequnce, int start, int end)
         {
             var result = SpiralMemory.FindGridRange(number, sqrt, sequnce);
 
             result.start.Should().Be(start);
-            result.start.Should().Be(end);
+            result.end.Should().Be(end);
         }
     }
 }

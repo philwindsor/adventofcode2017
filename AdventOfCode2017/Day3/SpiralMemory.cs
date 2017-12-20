@@ -9,23 +9,32 @@ namespace AdventOfCode2017.Day3
     {
         public static int CalculateSteps(int number)
         {
-            var sqrt = FindSquareRoot(number);
-            var sqRtSequenceNumber = OddNumberOrder(sqrt); // vertical steps
-            //var median = 
-            //var horizontalSteps = StepsAwayFromMedian(number, median);
+            if (number == 1)
+            {
+                return 0;
+            }
+            else
+            {
+                var sqrt = FindSquareRoot(number);
+                var sqRtSequenceNumber = OddNumberOrder(sqrt.sqrt); // vertical steps
+                var gridRange = FindGridRange(number, sqrt.value, sqRtSequenceNumber);
+                var median = FindMedian(gridRange.start, gridRange.end);
+                var horizontalSteps = StepsAwayFromMedian(number, median);
 
-            return 0;
+                return sqRtSequenceNumber - 1 + horizontalSteps;
+            }
         }
 
-        public static int FindSquareRoot(int number)
+        public static (int value, int sqrt) FindSquareRoot(int number)
         {
             for (int i = number; i < int.MaxValue; i++)
             {
                 var result = Math.Sqrt(i);
 
-                if ((result % 1) == 0)
+                // Has to be an odd number and be only divisble by itself
+                if ((result % 2) != 0 && (result % 1) == 0) 
                 {
-                    return i;
+                    return (i, (int)result);
                 }
             }
 
@@ -34,7 +43,7 @@ namespace AdventOfCode2017.Day3
 
         public static int OddNumberOrder(int number)
         {
-            if( (number % 2) == 0)
+            if ((number % 2) == 0)
             {
                 throw new ArgumentException("Number provided is not an odd number");
             }
@@ -48,9 +57,22 @@ namespace AdventOfCode2017.Day3
             return num;
         }
 
-        public static (int start,int end) FindGridRange(int number, int sqrt, int sequnce)
+        public static (int start, int end) FindGridRange(int number, int sqrt, int sequnce)
         {
-            
+            int startNumber = sqrt;
+            int sideLength = (int)(Math.Sqrt(startNumber) - 1);
+
+            for (int i = 1; i <= 4; i++)
+            {
+                if (number >= startNumber - sideLength && number <= startNumber)
+                {
+                    return (startNumber - sideLength, startNumber);
+                }
+
+                startNumber -= sideLength;
+            }
+
+            return (0, 0);
         }
 
         public static int FindMedian(int start, int end)
@@ -60,14 +82,14 @@ namespace AdventOfCode2017.Day3
             {
                 count++;
             }
-            
+
             var result = Math.Round(count / 2m, 0, MidpointRounding.AwayFromZero);
-            return start + (int)result-1;
+            return start + (int)result - 1;
         }
 
         public static int StepsAwayFromMedian(int number, int median)
         {
-            return median - number;
+            return median > number ? median - number : number - median;
         }
     }
 }

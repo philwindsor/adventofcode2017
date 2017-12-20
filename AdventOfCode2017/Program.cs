@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using AdventOfCode2017.Day1;
 using AdventOfCode2017.Day2;
+using AdventOfCode2017.Day3;
 
 namespace AdvdentOfCode2017
 {
@@ -15,6 +16,8 @@ namespace AdvdentOfCode2017
             var day2InputPuzzle = System.IO.File.ReadAllText("Day2\\InputPuzzleDay2.txt");
             Console.WriteLine($"Day2 Answer: {CorruptionChecksum.CalculateCheckSum(day2InputPuzzle)}");
             Console.WriteLine($"Day1 Part2 Answer: {CorruptionChecksum.CalculateCheckSum_Part2(day2InputPuzzle)}");
+
+            Console.WriteLine($"Day3 Answer: {SpiralMemory.CalculateSteps(289326)}");
 
 
             if (Debugger.IsAttached)
